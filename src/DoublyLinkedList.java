@@ -1,0 +1,131 @@
+public class DoublyLinkedList {
+    private int length;
+    private Node head;
+    private Node tail;
+
+    DoublyLinkedList(int value){
+        Node newNode=new Node(value);
+        head=newNode;
+        tail=newNode;
+        length++;
+    }
+
+    // CREATE CLASS VARIABLES, NODE CLASS, AND CONSTRUCTOR HERE //
+    class Node{
+        public int value;
+        private Node next;
+        private Node prev;
+        Node(int value){
+            this.value=value;
+        }
+    }
+    //append
+    public void append(int value){
+        Node appendedNode=new Node(value);
+        //when we have empty list
+        if(length==0){
+            head=appendedNode;
+            tail=appendedNode;
+        }else {
+            Node oldNode=tail;
+            oldNode.next=appendedNode;
+            appendedNode.prev=oldNode;
+            tail=appendedNode;
+        }
+        length++;
+    }
+    //remove last
+    public Node removeLast(){
+        Node temp=tail;
+        //if we have empty Node
+        if (length==0){
+            return null;
+        }else if(length==1) {
+            //if we have one item
+            head=null;
+            tail=null;
+        }else {
+            //multiple nodes
+            tail=tail.prev;
+            tail.next=null;
+            temp.prev=null;
+        }
+        length--;
+        return temp;
+    }
+    public void prepend(int value){
+        Node newNode= new Node(value);
+        //if list is empty
+        if (length==0){
+            head=newNode;
+            tail=newNode;
+        }else {
+            //if list have data
+            Node temp=head;
+            head=newNode;
+            newNode.next=temp;
+            temp.prev=newNode;
+        }
+        length++;
+    }
+
+    public Node removeFirst(){
+        Node temp=head;
+        if (length==0){
+            return null;
+        }else if(length==1){
+            head=null;
+            tail=null;
+        }else{
+            head=head.next;
+            temp.next=null;
+            head.prev=null;
+
+        }
+
+
+        length--;
+
+        return temp;
+
+    }
+
+    public Node getHead() {
+        return head;
+    }
+
+    public Node getTail() {
+        return tail;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public void printList() {
+        Node temp = head;
+        while (temp != null) {
+            System.out.println(temp.value);
+            temp = temp.next;
+        }
+    }
+
+    public void printAll() {
+        if (length == 0) {
+            System.out.println("Head: null");
+            System.out.println("Tail: null");
+        } else {
+            System.out.println("Head: " + head.value);
+            System.out.println("Tail: " + tail.value);
+        }
+        System.out.println("Length:" + length);
+        System.out.println("\nDoubly Linked List:");
+        if (length == 0) {
+            System.out.println("empty");
+        } else {
+            printList();
+        }
+    }
+
+}
+
